@@ -1,0 +1,6 @@
+Code run by **Ryan (Weiran) Zhao**
+Environment variable UWHPSC is /Users/Weiran/Documents/study/course/2013Summer/hpc/uwhpsc
+Environment variable MYHPSC is /Users/Weiran/Documents/gitProj/courseraHPSC
+Imported numpy ok
+Imported matplotlib ok
+Imported pylab ok
