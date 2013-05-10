@@ -1,0 +1,24 @@
+
+Code run by **Ryan (Weiran) Zhao**
+Environment variable UWHPSC is /Users/Weiran/Documents/study/course/2013Summer/hpc/uwhpsc
+Environment variable MYHPSC is /Users/Weiran/Documents/gitProj/courseraHPSC
+
+which ipython returns...
+/usr/local/bin/ipython
+
+which gfortran returns...
+/usr/bin/gfortran
+
+gfortran --version returns...
+GNU Fortran (MacPorts gcc48 4.8-20130411_0) 4.8.1 20130411 (prerelease)
+Copyright (C) 2013 Free Software Foundation, Inc.
+
+GNU Fortran comes with NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of GNU Fortran
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING
+
+
+Compiling and running a Fortran code...
+ Code run by  **Ryan (Weiran) Zhao**
+ Successfully ran Fortran 90 program
