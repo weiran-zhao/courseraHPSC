@@ -1,8 +1,9 @@
 
 """
 Demonstration module for quadratic interpolation.
-Update this docstring to describe your code.
-Modified by: ** your name here **
+Mainly for compute the coeffcients of quardratic polynomial give three sets of
+data; will also do testing and have a main function
+Modified by: ** Ryan (Weiran) Zhao**
 """
 
 
@@ -28,8 +29,11 @@ def quad_interp(xi,yi):
     assert len(xi)==3 and len(yi)==3, error_message
 
     # Set up linear system to interpolate through data points:
-
-    ### Fill in this part to compute c ###
+    A = np.array([np.ones(3),xi,xi*xi]).T
+    b = yi
+    
+    # Solve the system:
+    c = solve(A,b)
 
     return c
 
