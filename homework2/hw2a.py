@@ -26,7 +26,7 @@ print "The polynomial coefficients are:"
 print c
 
 # Plot the resulting polynomial:
-x = np.linspace(-2,3,1001)   # points to evaluate polynomial
+x = np.linspace(-2,4,1001)   # points to evaluate polynomial
 y = c[0] + c[1]*x + c[2]*x**2
 
 plt.figure(1)       # open plot figure window
@@ -35,7 +35,7 @@ plt.plot(x,y,'b-')  # connect points with a blue line
 
 # Add data points  (polynomial should go through these points!)
 plt.plot(xi,yi,'ro')   # plot as red circles
-plt.ylim(-2,8)         # set limits in y for plot
+plt.ylim(-1,5)         # set limits in y for plot
 
 plt.title("Data points and interpolating polynomial")
 

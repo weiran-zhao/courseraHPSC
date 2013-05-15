@@ -3,6 +3,7 @@
 Demonstration module for quadratic interpolation.
 Mainly for compute the coeffcients of quardratic polynomial give three sets of
 data; will also do testing and have a main function
+Also add a function for plotting
 Modified by: ** Ryan (Weiran) Zhao**
 """
 
@@ -36,7 +37,29 @@ def quad_interp(xi,yi):
     c = solve(A,b)
 
     return c
+def plot_quad(xi,yi):
+    """
+    takes two numpy arrays xi and yi of length 3, calls quad_interp to compute 
+    c, and then plots both the interpolating polynomial and the data points, 
+    and saves the resulting figure as quadratic.png
+    """
 
+    x = np.linspace(xi.min()-1,xi.max()+1,1001) # points to evaluate polynomial
+    c = quad_interp(xi,yi)  #calculate c
+    y = c[0] + c[1]*x + c[2]*x**2
+    
+    plt.figure(1)       # open plot figure window
+    plt.clf()           # clear figure
+    plt.plot(x,y,'b-')  # connect points with a blue line
+    
+    # Add data points  (polynomial should go through these points!)
+    plt.plot(xi,yi,'ro')   # plot as red circles
+    plt.ylim(yi.min()-1,yi.max()+1)         # set limits in y for plot
+    
+    plt.title("Data points and interpolating polynomial for quardratic " \
+              "polynomials")
+    
+    plt.savefig('quadratic.png')   # save figure as .png file
 
 def test_quad1():
     """
