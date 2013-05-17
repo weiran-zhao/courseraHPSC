@@ -105,3 +105,72 @@ if __name__=="__main__":
     print "Running test..."
     test_quad1()
 
+"""
+------------------------------------------------------------------------------
+dealing with cubic interpolation
+------------------------------------------------------------------------------
+"""
+
+def cubic_interp(xi,yi):
+    """
+    Cubic interpolation.  Compute the coefficients of the polynomial
+    interpolating the points (xi[i],yi[i]) for i = 0,1,2,3.
+    Returns c, an array containing the coefficients of
+      p(x) = c[0] + c[1]*x + c[2]*x**2 + c[3]*x**3.
+
+    """
+
+    # check inputs and print error message if not valid:
+
+    error_message = "xi and yi should have type numpy.ndarray"
+    assert (type(xi) is np.ndarray) and (type(yi) is np.ndarray), error_message
+
+    error_message = "xi and yi should have length 4"
+    assert len(xi)==4 and len(yi)==4, error_message
+
+    # Set up linear system to interpolate through data points:
+    A = np.array([np.ones(4),xi,xi*xi,xi*xi*xi]).T
+    b = yi
+    
+    # Solve the system:
+    c = solve(A,b)
+
+    return c
+def plot_cubic(xi,yi):
+    """
+    takes two numpy arrays xi and yi of length 4, calls cubic_interp to compute 
+    c, and then plots both the interpolating polynomial and the data points, 
+    and saves the resulting figure as cubic.png
+    """
+
+    x = np.linspace(xi.min()-1,xi.max()+1,1001) # points to evaluate polynomial
+    c = quad_interp(xi,yi)  #calculate c
+    y = c[0] + c[1]*x + c[2]*x**2 + c[3]*x**3
+    
+    plt.figure(1)       # open plot figure window
+    plt.clf()           # clear figure
+    plt.plot(x,y,'b-')  # connect points with a blue line
+    
+    # Add data points  (polynomial should go through these points!)
+    plt.plot(xi,yi,'ro')   # plot as red circles
+    plt.ylim(yi.min()-1,yi.max()+1)         # set limits in y for plot
+    
+    plt.title("Data points and interpolating polynomial for quardratic " \
+              "polynomials")
+    
+    plt.savefig('cubic.png')   # save figure as .png file
+
+def test_cubic1():
+    """
+    Test code, no return value or exception if test runs properly.
+    """
+    testNumber=10;
+    scale = 100;
+    for i in range(testNumber):
+        xi = np.random.rand(4)*scale-scale
+        c_true = np.random.rand(4)-.5
+        A = np.array([np.ones(4),xi,xi*xi,xi*xi*xi]).T
+        yi = np.dot(A,c_true)
+        c = cubic_interp(xi,yi)
+        assert np.allclose(c,c_true), \
+                "Incorrect result, c  = %s, Expected: c = %s" % (c,c_true)
