@@ -4,6 +4,11 @@ Demonstration module for quadratic interpolation.
 Mainly for compute the coeffcients of quardratic polynomial give three sets of
 data; will also do testing and have a main function
 Also add a function for plotting
+
+*********************************************
+Answer for question 5: because matrix A 
+becomes singular, when xi=[1.1.2]
+*********************************************
 Modified by: ** Ryan (Weiran) Zhao**
 """
 
