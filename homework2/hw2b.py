@@ -74,6 +74,21 @@ def test_quad1():
     # test that all elements have small error:
     assert np.allclose(c, c_true), \
         "Incorrect result, c = %s, Expected: c = %s" % (c,c_true)
+
+def test_quad2():
+    """
+    Test code, with various xi and yi, generated using random number
+    """
+    testNumber=10000;
+    scale = 100;
+    for i in range(testNumber):
+        xi = np.random.rand(3)*scale-scale
+        c_true = np.random.rand(3)-.5
+        A = np.array([np.ones(3),xi,xi*xi]).T
+        yi = np.dot(A,c_true)
+        c = quad_interp(xi,yi)
+        assert np.allclose(c,c_true), \
+                "Incorrect result, c  = %s, Expected: c = %s" % (c,c_true)
         
 if __name__=="__main__":
     # "main program"
