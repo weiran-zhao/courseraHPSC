@@ -20,7 +20,8 @@ def solve(fvals, x0, debug=False):
         return (x0, 0)
     for i in range(maxiter):
         x0 = x0 - f/fp
-        print "After %i iterations, x= %22.15e" % (i+1, x0)
+        if(debug):
+            print "After %i iterations, x= %22.15e" % (i+1, x0)
         f,fp = fvals(x0)
         if(abs(f)<tol):
             break;
