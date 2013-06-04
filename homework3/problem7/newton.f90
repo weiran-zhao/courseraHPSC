@@ -1,11 +1,14 @@
-! $UWHPSC/codes/fortran/newton/newton.f90
+! Originally in $UWHPSC/codes/fortran/newton/newton.f90
+! Modified by Ryan (Weiran) Zhao to finish problem 7 of hw3
+! Computer Science Dept, IU Bloomington
+! Mon,Jun 03th 2013 08:41:16 PM EDT
 
 module newton
 
     ! module parameters:
     implicit none
-    integer, parameter :: maxiter = 20
-    real(kind=8), parameter :: tol = 1.d-14
+    integer, parameter :: maxiter = 40
+    real(kind=8), save :: tol
 
 contains
 

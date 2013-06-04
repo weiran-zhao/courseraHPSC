@@ -1,38 +1,43 @@
-! $UWHPSC/codes/fortran/newton/test1.f90
+! Written by Ryan (Weiran) Zhao , Computer Science Dept, IU Bloomington
+! Mon,Jun 03th 2013 08:53:05 PM EDT
+program test_quartic
 
-program test1
+    use newton, only: solve, tol
+    use functions, only: eps, f_quartic, fprime_quartic 
 
-    use newton, only: solve
-    use functions, only: f_sqrt, fprime_sqrt
+    real(kind=8), dimension(3) :: tol_seq, eps_seq
+    integer :: tol_idx, eps_idx
+    real(kind=8) :: x0, fx, x_star
+    logical :: debug
+    ! store return value
+    real(kind=8) :: x
+    integer :: iters
 
-    implicit none
-    real(kind=8) :: x, x0, fx
-    real(kind=8) :: x0vals(3)
-    integer :: iters, itest
-	logical :: debug         ! set to .true. or .false.
+    !^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ! Give initial values
+    !^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    x0 = 4.d0
+    debug = .false.
+    tol_seq = (/1.d-5, 1.d-10, 1.d-14/)
+    eps_seq = (/1.d-4, 1.d-8, 1.d-12/)
+    
 
-    print *, "Test routine for computing zero of f"
-    debug = .true.
+    print 51, x0
+51  format('Starting with initial guess ', es23.15)
 
-    ! values to test as x0:
-    x0vals = (/1.d0, 2.d0, 100.d0 /)
+    print *, '    epsilon        tol    iters          x                 f(x)        x-xstar'
+    print *, ' '
+    eps_loop: do eps_idx = 1, 3
+        eps = eps_seq(eps_idx)
+        tol_loop: do tol_idx = 1,3
+            tol = tol_seq(tol_idx)
+            call solve(f_quartic, fprime_quartic, x0, x, iters, debug)
+            fx = f_quartic(x)
+            x_star = 1. + eps**(1/4.)
+            print 52, eps, tol, iters, x, fx, x-x_star
+            52 format(2es13.3, i4, es24.15, 2es13.3)
+        end do tol_loop
+        print *, ' '
+    end do eps_loop
 
-    do itest=1,3
-        x0 = x0vals(itest)
-		print *, ' '  ! blank line
-        call solve(f_sqrt, fprime_sqrt, x0, x, iters, debug)
-
-        print 11, x, iters
-11      format('solver returns x = ', es22.15, ' after', i3, ' iterations')
-
-        fx = f_sqrt(x)
-        print 12, fx
-12      format('the value of f(x) is ', es22.15)
-
-        if (abs(x-2.d0) > 1d-14) then
-            print 13, x
-13          format('*** Unexpected result: x = ', es22.15)
-            endif
-        enddo
-
-end program test1
+end program test_quartic

@@ -4,9 +4,26 @@
 
 module functions
 
+    implicit none
+
+    ! eps can be decided by user
+    real(kind=8), save :: eps
+
 contains
 
-real(kind=8) function 
+real(kind=8) function f_quartic(x)
+    implicit none
+    real(kind=8), intent(in) :: x
+
+    f_quartic = (x-1.)**4 - eps
+end function f_quartic
+
+real(kind=8) function fprime_quartic(x)
+    implicit none
+    real(kind=8), intent(in) :: x
+
+    fprime_quartic = 4. * (x-1.)**3
+end function fprime_quartic
 
 
 end module functions

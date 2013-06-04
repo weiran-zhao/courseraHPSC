@@ -1,17 +1,17 @@
 # $UWHPSC/codes/fortran/newton/Makefile
 
-OBJECTS = functions.o newton.o test1.o
+OBJECTS = functions.o newton.o test_quartic.o
 MODULES = functions.mod newton.mod
 
 FFLAGS = -g
 
-.PHONY: test1 clean 
+.PHONY: test_quartic clean 
 
-test1: test1.exe
-	./test1.exe
+test_quartic: test_quartic.exe
+	./test_quartic.exe
 
-test1.exe: $(MODULES) $(OBJECTS)
-	gfortran $(FFLAGS) $(OBJECTS) -o test1.exe
+test_quartic.exe: $(MODULES) $(OBJECTS)
+	gfortran $(FFLAGS) $(OBJECTS) -o test_quartic.exe
 
 %.o : %.f90
 	gfortran $(FFLAGS) -c  $< 
