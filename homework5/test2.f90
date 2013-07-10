@@ -1,9 +1,11 @@
-
-program test
+! Modified from $UWHPSC/codes/homework5/test.f90
+! By Ryan (Weiran) Zhao 
+! Wed,Jul 10th 2013 01:46:48 PM EDT
+program test2
 
     use omp_lib
 
-    use quadrature, only: trapezoid, error_table
+    use quadrature2, only: trapezoid, error_table,simpson
     use functions, only: f, fevals, k
 
     implicit none
@@ -39,7 +41,8 @@ program test
     ! time the call to error_table:
     call system_clock(tclock1)  
     call cpu_time(t1)
-    call error_table(f, a, b, nvals, int_true, trapezoid)
+    !call error_table(f, a, b, nvals, int_true, trapezoid)
+    call error_table(f, a, b, nvals, int_true, simpson)
     call cpu_time(t2)   
     call system_clock(tclock2, clock_rate)
 
@@ -61,4 +64,4 @@ program test
     print 102, sum(fevals)
 102 format("Total number of fevals: ",i10)
 
-end program test
+end program test2

@@ -1,5 +1,5 @@
 
-OBJECTS = functions.o quadrature.o test.o
+OBJECTS = functions.o quadrature2.o test2.o
 FFLAGS = -fopenmp
 
 .PHONY: test clean 

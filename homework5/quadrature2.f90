@@ -1,5 +1,8 @@
-
-module quadrature
+! Modified from $UWHPSC/codes/homework5/quadrature.f90
+! By Ryan (Weiran) Zhao 
+! add 'function' simpson
+! Wed,Jul 10th 2013 01:29:14 PM EDT
+module quadrature2
 
     use omp_lib
 
@@ -72,5 +75,38 @@ subroutine error_table(f,a,b,nvals,int_true,method)
 end subroutine error_table
 
 
-end module quadrature
+real(kind=8) function simpson(f, a, b, n)
+
+    ! Estimate the integral of f(x) from a to b using the
+    ! Simpson's Rule with n points.
+
+    ! Input:
+    !   f:  the function to integrate
+    !   a:  left endpoint
+    !   b:  right endpoint
+    !   n:  number of points to use
+    ! Returns:
+    !   the estimate of the integral
+     
+    implicit none
+    real(kind=8), intent(in) :: a,b
+    real(kind=8), external :: f
+    integer, intent(in) :: n
+
+    ! Local variables
+    integer:: i
+    real(kind=8) :: h, simp_sum
+
+    h = (b-a)/(n-1)
+    simp_sum = (f(a)-f(b)) ! for end point
+
+    !$omp parallel do reduction(+: simp_sum)
+    do i=2,n
+        simp_sum = simp_sum + 4*f(a+(1.d0/2+i-2)*h);
+        simp_sum = simp_sum + 2*f(a+(i-1)*h);
+    end do
+
+    simpson = h/6*simp_sum
+end function simpson
+end module quadrature2
 
