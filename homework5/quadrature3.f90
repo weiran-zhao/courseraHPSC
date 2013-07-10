@@ -57,20 +57,32 @@ subroutine error_table(f,a,b,nvals,int_true,method)
     ! Local variables:
     integer :: j, n
     real(kind=8) :: ratio, last_error, error, int_approx
+    real(kind=8), dimension(:) :: err(0:size(nvals))
 
     print *, "      n         approximation        error       ratio"
     last_error = 0.d0   
-    !$omp parallel do firstprivate(last_error) private(n,int_approx,error,ratio)
-    do j=1,size(nvals)
+    !$omp parallel do firstprivate(last_error) private(n,int_approx,error,ratio) &
+    !$omp schedule(dynamic)
+    !do j=1,size(nvals)
+    do j=size(nvals),1,-1
         n = nvals(j)
         int_approx = method(f,a,b,n)
         error = abs(int_approx - int_true)
+        err(j) = error
         ratio = last_error / error
         last_error = error  ! for next n
 
         print 11, n, int_approx, error, ratio
  11     format(i8, es22.14, es13.3, es13.3)
         enddo
+
+    ! print error in correct order
+    print *, " error,   ratio"
+    err(0) = 0.d0
+    do j=1,size(nvals)
+        print 111, err(j), err(j-1)/err(j)
+        111 format(2es13.3)
+    end do
 
 end subroutine error_table
 
