@@ -1,11 +1,11 @@
-! Modified from $UWHPSC/codes/homework5/test.f90
+! Modified from test2.f90
 ! By Ryan (Weiran) Zhao 
-! Wed,Jul 10th 2013 01:46:48 PM EDT
-program test2
+! Wed,Jul 10th 2013 02:35:55 PM EDT
+program test3
 
     use omp_lib
 
-    use quadrature2, only: trapezoid, error_table,simpson
+    use quadrature3, only: trapezoid, error_table,simpson
     use functions, only: f, fevals, k
 
     implicit none
@@ -64,4 +64,4 @@ program test2
     print 102, sum(fevals)
 102 format("Total number of fevals: ",i10)
 
-end program test2
+end program test3

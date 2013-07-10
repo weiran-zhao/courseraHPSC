@@ -1,14 +1,21 @@
 
-OBJECTS = functions.o quadrature2.o test2.o
+TEST2= functions.o quadrature2.o test2.o
+TEST3= functions.o quadrature3.o test3.o
 FFLAGS = -fopenmp
 
-.PHONY: test clean 
+.PHONY: test2 test3 clean 
 
-test: test.exe
-	./test.exe
+test3: test3.exe
+	./test3.exe
 
-test.exe: $(OBJECTS)
-	gfortran $(FFLAGS) $(OBJECTS) -o test.exe
+test2: test2.exe
+	./test2.exe
+
+test3.exe: $(TEST3)
+	gfortran $(FFLAGS) $(TEST3) -o test3.exe
+
+test2.exe: $(TEST2)
+	gfortran $(FFLAGS) $(TEST2) -o test2.exe
 
 %.o : %.f90
 	gfortran $(FFLAGS) -c  $< 
